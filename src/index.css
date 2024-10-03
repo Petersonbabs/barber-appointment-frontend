@@ -4,31 +4,54 @@
 
 /* MODE SETTINGS */
 
+.background-vid{
+  z-index: -4;
+  position: absolute;
+  background-blend-mode: color-burn;
+  display: none;
+}
+
+button:disabled{
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .background-vid {
+    /* display: block; */
+  }
+}
+
+.custom-loader {
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:conic-gradient(#0000 10%,#8C5FF8);
+  -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 4px),#000 0);
+  animation:s3 0.5s infinite linear;
+}
+@keyframes s3 {to{transform: rotate(1turn)}}
+
 @layer base {
  
  
 
    body {
-    @apply bg-white text-black;
+    @apply bg-[#111] text-white;
 
   }
 
-  a{
-    @apply text-[#24ae7c];
-  }
+ 
 
+  
 
-  @media (prefers-color-scheme: dark) {
-    body {
-      @apply bg-[#131619] text-white; 
-    }
-    a{
-      @apply text-[#24ae7c];
-    }
-  }
 }
 /* ========================================== TAILWIND STYLES */
 @layer base {
+
+  .pink-purple-linear-gradient{
+    @apply 
+  }
+
   /* Remove scrollbar */
   .remove-scrollbar::-webkit-scrollbar {
     width: 0px;
