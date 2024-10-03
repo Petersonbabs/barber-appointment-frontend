@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import BarberShopImg from "/happy-barber-giving-haircut-handsome-happy-male-client-professional-barbershop_220770-14869.jpg";
 import { TypographyH2 } from "@/components/ui/headingTwo";
 import { Label } from "@/components/ui/label";
-import { FormInput } from "lucide-react";
+import "./auth.css";
 
 // Define the validation schema using Zod
 const loginSchema = z.object({
@@ -31,17 +31,13 @@ const LoginForm = () => {
     <div className="flex flex-col sm:flex-row h-screen items-center">
       <div className="w-full sm:w-2/4  m-auto">
         <div className="w-[80%] m-auto">
-          <TypographyH2 text={"Hey there, ...."} />
-          <p>Login to book a haircut appointment</p>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-4 border">
+          <TypographyH2 text={"Hey there..."} />
+          <p className="text-dark-700">Login to book an apointment</p>
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-4 border flex-1 space-y-12">
             {/* Email Field */}
             <div>
-              <Label className='mb-2 sm:text-lg'>Email</Label>
-              <input
-                type="email"
-                {...register("email")} 
-                className="w-full"
-              />
+              <Label className="mb-2 sm:text-lg shad-input-label">Email</Label>
+              <input type="email" {...register("email")} className="w-full text-input  border-0" />
               {errors.email && <p>{errors.email.message}</p>} {/* Show error */}
             </div>
 
@@ -59,6 +55,7 @@ const LoginForm = () => {
             {/* Submit Button */}
             <button type="submit">Login</button>
           </form>
+          <p className="copyright py-12">© 2024 PerfectHaircuts</p>
         </div>
       </div>
       <div className="w-full hidden sm:block sm:w-2/4 h-full">
