@@ -29,6 +29,12 @@ export default {
 					600: "#76828D",
 					700: "#ABB8C4",
 				},
+				shadow: '#eee',
+				green: '#00c7bb',
+				lightPurple: 'var(--lightPurple)',
+				hover: '#4627d1',
+				darkPurple: '#0d095d',
+				customGray: '#787b99'
 			},
 
 			backgroundImage: {
@@ -61,6 +67,9 @@ export default {
 				"accordion-up": "accordion-up 0.2s ease-out",
 				"caret-blink": "caret-blink 1.25s ease-out infinite",
 			},
+			boxShadow: {
+				focusShadow: '--focus-shadow'
+			}
 		},
 	},
 	plugins: [require("tailwindcss-animate")],

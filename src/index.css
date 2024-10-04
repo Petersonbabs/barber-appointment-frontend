@@ -4,14 +4,14 @@
 
 /* MODE SETTINGS */
 
-.background-vid{
+.background-vid {
   z-index: -4;
   position: absolute;
   background-blend-mode: color-burn;
   display: none;
 }
 
-button:disabled{
+button:disabled {
   cursor: not-allowed;
 }
 
@@ -21,35 +21,138 @@ button:disabled{
   }
 }
 
-.custom-loader {
-  width:25px;
-  height:25px;
-  border-radius:50%;
-  background:conic-gradient(#0000 10%,#8C5FF8);
-  -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 4px),#000 0);
-  animation:s3 0.5s infinite linear;
+:root {
+  --shadow: 0 1px 1px #5632f959 !important;
+  --focus-shadow: 0 1px 3px 1px #5632f959 !important;
+  --transition: .4s ease;
+
+  /* colors */
+  --lightPurple: #5732f9;
+  --hover: #4325c7;
 }
-@keyframes s3 {to{transform: rotate(1turn)}}
+
+/* 
+===============
+===============
+COMPONENTS
+===============
+===============
+*/
+
+.custom-loader {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #8c5ff8);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
+  animation: s3 0.5s infinite linear;
+}
+
+.input-container {
+  box-shadow: var(--shadow);
+}
+
+.input-container:focus-within {
+  box-shadow: var(--focus-shadow);
+}
+
+.toggler label{
+  height: 15px;
+  width: 30px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+.toggler #slider{
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #ccc;
+  padding: 5px;
+  transition: background .4s;
+}
+
+.toggler #slider::before{
+  content: '';
+  position: absolute;
+  height: 11px;
+  width: 10px;
+  top: 2px ;
+  left: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform .4s ease-in-out;
+}
+
+.toggler input{
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.toggler input:checked + #slider{
+  background: var(--lightPurple) !important;
+}
+
+.toggler input:checked + #slider::before{
+  transform: translateX(14px);
+}
+
+
+
+
+
+/* 
+===============
+===============
+END OF COMPONENTS
+===============
+===============
+*/
+
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
 
 @layer base {
- 
- 
-
-   body {
-    @apply bg-[#111] text-white;
-
+  body {
+    /* @apply bg-[#111] text-white; */
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
   }
 
- 
+  .link-text{
+    @apply text-lightPurple text-14-medium underline cursor-pointer !important;
+  }
 
-  
+  .link-text:hover{
+    @apply text-hover;
+  }
 
+  .error-paragraph {
+    @apply text-sm text-red-500  border border-red-400 px-3 py-1 mt-0 rounded-b capitalize bg-red-50 font-semibold flex gap-2 items-center;
+  }
+
+  .input-icon {
+    @apply size-4 text-dark-600;
+  }
+
+  .input-container {
+    @apply w-full border rounded-md flex px-2 items-center;
+  }
+
+  .form-label{
+    @apply shad-input-label;
+  }
 }
 /* ========================================== TAILWIND STYLES */
 @layer base {
-
-  .pink-purple-linear-gradient{
-    @apply 
+  .pink-purple-linear-gradient {
+    @apply;
   }
 
   /* Remove scrollbar */
@@ -243,7 +346,7 @@ button:disabled{
   }
 
   .shad-input-label {
-    @apply text-14-medium text-dark-700 !important;
+    @apply text-14-medium text-dark-600 !important;
   }
 
   .shad-input {

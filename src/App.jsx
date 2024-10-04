@@ -2,7 +2,7 @@ import React from "react";
 import AuthProvider from "./context/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/protected/Dashboard/Routes";
-import LoginForm from "./pages/Login";
+import LoginForm from "./pages/LoginPage";
 import ProtectRoute from "./context/ProtectRoutes";
 import { Toaster } from "sonner";
 // import { Toaster } from "./components/ui/toaster";
