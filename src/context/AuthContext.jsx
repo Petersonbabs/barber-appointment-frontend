@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 export const useAuthContext = () => {
@@ -11,15 +11,26 @@ const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [user, setUser] = useState({});
-  const [accessToken, setAccessToken] = useState("");
-  const [authMessage, setAuthMessage] = useState("test message!");
-  const [authStatus, setAuthStatus] = useState("success");
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'));
+  const [authMessage, setAuthMessage] = useState("");
+  const [authStatus, setAuthStatus] = useState("");
   const apiUrl = import.meta.env.VITE_BASE_URL;
 
   const setUserData = (data) => {
     setUser(data.user);
     setAccessToken(data.token);
+    setAuthMessage(data.message);
+    setAuthStatus(data.status)
   };
+
+  useEffect(()=>{
+
+  }, [accessToken])
+
+  // validate token
+  const validateToken = ()=>{
+
+  }
 
   // REGISTER USER
   const registerUser = async (formData) => {
@@ -38,6 +49,28 @@ const AuthProvider = ({ children }) => {
       setLoadingAuth(false);
     }
   };
+
+  // SIGN IN WITH GOOGLE
+  const signInWithGoogle = async () => {
+    try {
+      // 1. sign in with google
+
+      const dataFromGoogle = await axios.post()
+      const data = {
+        name: dataFromGoogle.displayName,
+        email: dataFromGoogle.email,
+        phoneNumber: dataFromGoogle.phoneNumber,
+        profilePic:  dataFromGoogle.image
+
+      }
+      // 2. send details to backend
+      const response = await axios.post(`${apiUrl}/auth/google`, )
+
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  }
 
   const value = {
     accessToken,

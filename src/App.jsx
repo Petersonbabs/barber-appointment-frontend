@@ -5,6 +5,8 @@ import Dashboard from "./pages/protected/Dashboard/Routes";
 import LoginForm from "./pages/LoginPage";
 import ProtectRoute from "./context/ProtectRoutes";
 import { Toaster } from "sonner";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 // import { Toaster } from "./components/ui/toaster";
 
 const App = () => {
@@ -25,7 +27,8 @@ const App = () => {
       }/>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
 
           {/* protected routes */}
           <Route element={<ProtectRoute />}>
