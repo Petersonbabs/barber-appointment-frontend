@@ -59,7 +59,7 @@ const AuthProvider = ({ children }) => {
       const response = await axios.post(`${apiUrl}/auth/login`, formData)
       if(response.status){
         toast.success('Login succesful!')
-        navigate('/dashboard')
+        navigate('/')
       } else {
       }
       console.log(response)
