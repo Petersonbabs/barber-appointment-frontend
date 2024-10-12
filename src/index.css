@@ -49,11 +49,11 @@ COMPONENTS
 }
 
 .input-container {
-  box-shadow: var(--shadow);
+  @apply shadow;
 }
 
 .input-container:focus-within {
-  box-shadow: var(--focus-shadow);
+  @apply hover:shadow-md;
 }
 
 .toggler label{
