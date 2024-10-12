@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Toggler from "@/components/common/toggler";
+import Toggler from "../common/Toggler";
 import GoogleIcon from "@/components/common/GoogleIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
