@@ -126,7 +126,7 @@ END OF COMPONENTS
   }
 
   .link-text{
-    @apply text-lightPurple text-14-medium underline cursor-pointer !important;
+    @apply text-lightPurple text-sm underline cursor-pointer !important;
   }
 
   .link-text:hover{

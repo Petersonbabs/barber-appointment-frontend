@@ -63,11 +63,11 @@ const LoginForm = () => {
   return (
     <section className="space-y-8">
       <div className="mb-4">
-        <h1 className="text-3xl font-bold text-darkPurple">
+        <h1 className="text-lg sm:text-3xl font-bold text-darkPurple">
           Hi, Welcome Back!
         </h1>
-        <p className="text-customGray">
-          Start booking your haircuts appointments.
+        <p className="text-customGray text-sm">
+          Start booking appointments.
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex-1 space-y-4">
@@ -128,18 +128,18 @@ const LoginForm = () => {
                 onClick={handleTogglePassword}
               />
             )}
-            {errors.password && (
+          </div>
+          {errors.password && (
               <p className="error-paragraph">
                 <TriangleAlert className="size-4" />
                 <span>{errors.password.message}</span>
               </p>
             )}{" "}
             {/* Show error */}
-          </div>
         </div>
 
         <div>
-          <div className="flex justify-between items-center my-8">
+          <div className="flex justify-between items-center my-8 flex-wrap gap-4">
             <div className="flex items-center gap-2">
               <Toggler register={register} rounded={"30px"} />
               <span className="form-label">Keep me signed in</span>
