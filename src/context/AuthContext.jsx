@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "sonner";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 export const useAuthContext = () => {
@@ -14,6 +15,7 @@ const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'));
   const [authMessage, setAuthMessage] = useState("");
   const [authStatus, setAuthStatus] = useState("");
+  const navigate = useNavigate()
   const apiUrl = import.meta.env.VITE_BASE_URL;
 
   const setUserData = (data) => {
@@ -50,6 +52,29 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // LOGIN USER
+  const loginUser = async (formData) => {
+    setLoadingAuth(true)
+    try {
+      const response = await axios.post(`${apiUrl}/auth/login`, formData)
+      if(response.status){
+        toast.success('Login succesful!')
+        navigate('/dashboard')
+      } else {
+      }
+      console.log(response)
+      const data =  response.data
+      setUserData(data)
+      
+    } catch (error) {
+      toast.error(error.response.data.message)
+      console.log(error.response)
+
+    } finally {
+      setLoadingAuth(false)
+    }
+  }
+
   // SIGN IN WITH GOOGLE
   const signInWithGoogle = async () => {
     try {
@@ -81,7 +106,8 @@ const AuthProvider = ({ children }) => {
     setLoadingAuth,
     authMessage,
     setAuthMessage,
-    authStatus
+    authStatus,
+    loginUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

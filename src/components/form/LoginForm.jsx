@@ -35,7 +35,7 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
-  const { registerUser, accessToken, loadingAuth, authMessage,authStatus } =
+  const { loginUser, loadingAuth, authMessage, authStatus } =
     useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,18 +46,18 @@ const LoginForm = () => {
   useEffect(()=>{
     if(authMessage){
        if(authStatus == 'error'){
-        toast.error(authMessage, {position: 'top-right'})
+        toast.error(authMessage)
         return
        } else if(authStatus == 'success'){
-        toast.success(authMessage, {position: 'top-right'})
+        toast.success(authMessage)
        }
     }
   }, [authMessage])
 
   // handle submit
   const onSubmit = (data) => {
-    // registerUser({ name: "test test", ...data });
-    console.log(data);
+    loginUser(data );
+    
   };
 
   return (

@@ -8,7 +8,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col sm:flex-row h-screen items-center">
       <div className="w-full sm:w-2/5 h-full m-auto bg-gradient-to-tr flex items-center">
-        <div className="w-[80%] m-auto h-[93%] flex flex-col justify-between">
+        <div className="w-[80%] m-auto h-[93%] flex flex-col space-y-8">
           <div className=" flex items-center justify-center mb-4  shadow-md">
             <h2 className="font-bold font-sans text-center text-lg text-darkPurple">
               Hark<span className="text-lightPurple">Cutx</span>
