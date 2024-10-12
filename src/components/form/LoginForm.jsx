@@ -70,7 +70,7 @@ const LoginForm = () => {
           Start booking appointments.
         </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex-1 space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex-1 space-y-4">
         {/* Email Field */}
         <div className="flex flex-col gap-2">
           <Label className="form-label">Email</Label>
@@ -140,7 +140,7 @@ const LoginForm = () => {
 
         <div>
           <div className="flex justify-between items-center my-8 flex-wrap gap-4">
-            <div className="flex items-center gap-2">
+            <div className=" items-center gap-2 hidden">
               <Toggler register={register} rounded={"30px"} />
               <span className="form-label">Keep me signed in</span>
             </div>
@@ -169,7 +169,7 @@ const LoginForm = () => {
         </div>
       </form>
 
-      <div className="flex items-center gap-1">
+      <div className="hidden items-center gap-1">
         <div className="h-[1px] bg-[#ccc] flex-1 "></div>
         <span className="text-gray-400 text-sm flex-1 min-w-fit">
           Or, log in with your email.
