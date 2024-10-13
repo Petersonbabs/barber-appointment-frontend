@@ -35,7 +35,7 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
-  const { loginUser, loadingAuth, authMessage, authStatus } =
+  const { loginUser, loadingAuth, authMessage, authStatus, signInWithGoogle } =
     useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -61,7 +61,7 @@ const LoginForm = () => {
   };
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-4">
       <div className="mb-4">
         <h1 className="text-lg sm:text-3xl font-bold text-darkPurple">
           Hi, Welcome Back!
@@ -70,7 +70,8 @@ const LoginForm = () => {
           Start booking appointments.
         </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex-1 space-y-4">
+
+      <form onSubmit={handleSubmit(onSubmit)} className=" space-y-4">
         {/* Email Field */}
         <div className="flex flex-col gap-2">
           <Label className="form-label">Email</Label>
@@ -100,7 +101,7 @@ const LoginForm = () => {
         </div>
 
         {/* Password Field */}
-        <div className="mb-8">
+        <div className="">
           <Label className="form-label">Password</Label>
           <div
             className={`input-container ${
@@ -139,23 +140,19 @@ const LoginForm = () => {
         </div>
 
         <div>
-          <div className="flex justify-between items-center my-8 flex-wrap gap-4">
-            <div className=" items-center gap-2 hidden">
+          <div className=" justify-between hidden items-center my-8 flex-wrap gap-4">
+            <div className=" items-center gap-2 ">
               <Toggler register={register} rounded={"30px"} />
               <span className="form-label">Keep me signed in</span>
             </div>
 
-            {/* forgot password */}
-            <div className="flex items-center ">
-              <ShieldQuestion className="input-icon fill-slate-500 text-white " />
-              <span className="link-text">Forgot password?</span>
-            </div>
+            
           </div>
 
           <button
-            className={`transition ease-in-out delay-150 bg-lightPurple hover:-translate-y-1 hover:scale-105 hover:bg-hover duration-300 py-3  rounded-md ${
+            className={`transition ease-in-out delay-150 bg-lightPurple hover:-translate-y-1 hover:scale-105 hover:bg-hover duration-300 py-3  rounded-md mt-8 ${
               loadingAuth ? "text-gray-200" : "text-white"
-            } font-bold py- px-4 rounded flex w-full my-8 justify-center items-center gap-2`}
+            } font-bold py- px-4 rounded flex w-full justify-center items-center gap-2`}
             disabled={loadingAuth}
           >
             {loadingAuth ? (
@@ -178,11 +175,16 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <Button className=" rounded-md border-2 hover:shadow hover:bg-gray-50 flex items-center gap-2 w-full justify-center">
+        <Button className=" rounded-md border-2 hover:shadow hover:bg-gray-50 flex items-center gap-2 w-full justify-center" onClick={signInWithGoogle}>
           <GoogleIcon size={6} />
-          <span className="form-label">Sign in with Google</span>
+          <span className="form-label">Continue with Google</span>
         </Button>
       </div>
+      {/* forgot password */}
+      <div className="flex items-center ">
+              <ShieldQuestion className="input-icon fill-slate-500 text-white " />
+              <span className="link-text">Forgot password?</span>
+            </div>
     </section>
   );
 };

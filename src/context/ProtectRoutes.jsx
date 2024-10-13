@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 const ProtectRoute = ()=>{
 
-    const {authenticated} = useAuthContext()
+    const {accessToken, user} = useAuthContext()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!authenticated) {
+        if (!accessToken && !user) {
           navigate('/login');
         }
       }, [navigate]);

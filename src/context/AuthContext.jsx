@@ -2,6 +2,8 @@ import axios from "axios";
 import { toast } from "sonner";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { app } from "@/firebase";
 
 const AuthContext = createContext();
 export const useAuthContext = () => {
@@ -12,27 +14,26 @@ const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [user, setUser] = useState({});
-  const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'));
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("access_token")
+  );
   const [authMessage, setAuthMessage] = useState("");
   const [authStatus, setAuthStatus] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_BASE_URL;
+  const auth = getAuth(app);
 
   const setUserData = (data) => {
     setUser(data.user);
     setAccessToken(data.token);
     setAuthMessage(data.message);
-    setAuthStatus(data.status)
+    setAuthStatus(data.status);
   };
 
-  useEffect(()=>{
-
-  }, [accessToken])
+  useEffect(() => {}, [accessToken]);
 
   // validate token
-  const validateToken = ()=>{
-
-  }
+  const validateToken = () => {};
 
   // REGISTER USER
   const registerUser = async (formData) => {
@@ -45,8 +46,8 @@ const AuthProvider = ({ children }) => {
       console.log(data);
       setUserData(data);
     } catch (error) {
-        console.log(error)
-      toast.error(error.response.data.message, {position: 'top-right'})
+      console.log(error);
+      toast.error(error.response.data.message, { position: "top-right" });
     } finally {
       setLoadingAuth(false);
     }
@@ -54,48 +55,54 @@ const AuthProvider = ({ children }) => {
 
   // LOGIN USER
   const loginUser = async (formData) => {
-    setLoadingAuth(true)
+    setLoadingAuth(true);
     try {
-      const response = await axios.post(`${apiUrl}/auth/login`, formData)
-      if(response.status){
-        toast.success('Login succesful!')
-        navigate('/')
+      const response = await axios.post(`${apiUrl}/auth/login`, formData);
+      if (response.status) {
+        toast.success("Login succesful!");
+        navigate("/");
       } else {
       }
-      console.log(response)
-      const data =  response.data
-      setUserData(data)
-      
+      console.log(response);
+      const data = response.data;
+      setUserData(data);
     } catch (error) {
-      toast.error(error.response.data.message)
-      console.log(error.response)
-
+      toast.error(error.response.data.message);
+      console.log(error.response);
     } finally {
-      setLoadingAuth(false)
+      setLoadingAuth(false);
     }
-  }
+  };
 
   // SIGN IN WITH GOOGLE
   const signInWithGoogle = async () => {
     try {
       // 1. sign in with google
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      const resultsFromGoogle = await signInWithPopup(auth, provider);
+      const { displayName, email, phoneNumber, imageUrl } =
+        resultsFromGoogle.user;
 
-      const dataFromGoogle = await axios.post()
       const data = {
-        name: dataFromGoogle.displayName,
-        email: dataFromGoogle.email,
-        phoneNumber: dataFromGoogle.phoneNumber,
-        profilePic:  dataFromGoogle.image
-
-      }
+        name: displayName,
+        email: email,
+        phoneNumber: phoneNumber,
+        profilePic: photoURL,
+      };
       // 2. send details to backend
-      const response = await axios.post(`${apiUrl}/auth/google`, )
-
+      const response = await axios.post(`${apiUrl}/auth/google`, data);
+      if (response.status) {
+        const user = await response.data;
+        console.log(user);
+        setUserData(user);
+        navigate('/')
+      }
     } catch (error) {
-      console.log(error)
-      toast.error(error.response.data.message)
+      console.log(error);
+      toast.error(error.response.data.message);
     }
-  }
+  };
 
   const value = {
     accessToken,
@@ -107,7 +114,8 @@ const AuthProvider = ({ children }) => {
     authMessage,
     setAuthMessage,
     authStatus,
-    loginUser
+    loginUser,
+    signInWithGoogle,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
